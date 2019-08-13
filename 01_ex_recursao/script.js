@@ -100,9 +100,88 @@ var entrarNumerosCalcularProduto = () => {
  * @param {number} n 
  */
 var contarDigitos = (n) => {
-    if (n % 1 !== 0) {
-        return 1;
+    if (n < 1) {
+        return 0;
     }
     return 1 + contarDigitos(n / 10);
 };
 
+/**
+ * * Programa para testar @method {contarDigitos}
+ */
+var entrarNumerosContarDigitos = () => {
+    var n = Number(prompt('Digite um número: '));
+    alert('O número ' + n + ' possui ' + contarDigitos(n) + ' dígitos.');
+};
+
+/**
+ * * 8 - Escreva uma função recursiva que retorne o menor elemento de um vetor com 10 elementos. 
+ * * Para isso, ela receberá como entrada o vetor e o número de elementos no mesmo. 
+ * * A função retornará o menor número do vetor.
+ */
+var buscarMenorNumeroNoVetor = () => {
+    var vetor = [4, 6, 4, 3, 2, 8, 9, 5, 2, 6];
+    var tamanho = vetor.length;
+    return procurarMenor(tamanho, vetor);
+};
+
+/**
+ * Função recursiva
+ * @param {number} tamanho 
+ * @param {Array} vetor 
+ */
+var procurarMenor = (tamanho, vetor) => {
+    console.log('Tamanho: ' + tamanho);
+    var aux = vetor;
+    if (tamanho > 0) {
+        console.log('POSIÇÃO VETOR ***: ' + aux[tamanho - 1]);
+        if (aux[9] >= aux[tamanho - 1]) {
+            aux[9] = aux[tamanho - 1];
+            console.log('POSIÇÃO VETOR MENOR: ' + aux[tamanho - 1]);
+            return procurarMenor(tamanho - 1, aux);
+        }
+        return procurarMenor(tamanho - 1, aux);
+    }
+    return aux[9];
+};
+
+/**
+ * * 9 - Escreva uma função recursiva que resolve o problema da Torre de Hanoi. 
+ * * Um "quebra-cabeça" que consiste em uma base contendo três pinos, em um dos quais são dispostos alguns discos uns sobre os outros, em ordem crescente de diâmetro, de cima para baixo. 
+ * * O problema consiste em passar todos os discos de um pino para outro qualquer, usando um dos pinos como auxiliar, de maneira que um disco maior nunca fique em cima de outro menor em nenhuma situação.
+ * @param {number} n Quantidade de barras
+ * @param {string} origem 
+ * @param {string} destino 
+ * @param {string} aux 
+ * @variation https://tinyurl.com/gfgth
+ */
+var torreHanoi = (n, origem, destino, aux) => {
+    if (n === 1) {
+        console.log('Mover disco 1 de ' + origem + ' para ' + destino);
+        return;
+    }
+    torreHanoi(n - 1, origem, aux, destino);
+    console.log('Mover disco ' + n + ' de ' + origem + ' para ' + destino);
+    torreHanoi(n - 1, aux, destino, origem);
+};
+
+/**
+ * * 10 – Escreva uma função recursiva que recebe como entrada duas strings A e B e conta o número de ocorrências de B em A.
+ * @param {string} nome 
+ * @param {string} substring 
+ */
+var contarOcorrencia = (nome, substring) => {
+    console.log(verificar(0, nome, substring));
+};
+
+var verificar = (int, nome, substring) => {
+    if (int === nome.length) {
+        return;
+    }
+    if (nome.substring(int, substring.length + int) === substring) {
+        console.log('OCORRÊNCIA ENCONTRADA');
+        return verificar(int + 1, nome, substring) + 1;
+    }
+    verificar(int + 1, nome, substring);
+    return 1;
+};
